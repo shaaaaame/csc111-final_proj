@@ -41,17 +41,17 @@ class Graph:
     def __len__(self):
         return len(self.nodes)
 
-    def add_edge(self, item1: Any, item2: Any) -> None:
-        """Add an edge between the two vertices with the given items in this graph.
+    def add_edge(self, id1: Any, id2: Any) -> None:
+        """Add an edge between the two vertices with the given id number in this graph.
 
-        Raise a ValueError if item1 or item2 do not appear as vertices in this graph.
+        Raise a ValueError if id1 or id2 do not appear as vertices in this graph.
 
         Preconditions:
             - item1 != item2
         """
-        if item1 in self.nodes and item2 in self.nodes:
-            v1 = self.nodes[item1]
-            v2 = self.nodes[item2]
+        if id1 in self.nodes and id2 in self.nodes:
+            v1 = self.nodes[id1]
+            v2 = self.nodes[id2]
 
             # Add the new edge
             v1.neighbours.add(v2)
