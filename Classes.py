@@ -54,6 +54,10 @@ class Node:
         """
     item: Song
     neighbours: set[Node]
+    def __init__(self, item: Song, neighbours: set[Node]) -> None:
+        """Initialize a new vertex with the given item and neighbours."""
+        self.item = item
+        self.neighbours = neighbours
 
 # import csv
 #
