@@ -41,7 +41,7 @@ class Graph:
     def __len__(self):
         return len(self.nodes)
 
-class Nodes:
+class Node:
     """A vertex in a graph.
 
         Instance Attributes:
@@ -53,7 +53,7 @@ class Nodes:
             - all(self in u.neighbours for u in self.neighbours)
         """
     item: Song
-    neighbours: set[Nodes]
+    neighbours: set[Node]
 
 # import csv
 #
