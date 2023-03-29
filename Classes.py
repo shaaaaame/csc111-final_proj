@@ -1,7 +1,8 @@
 """
 Project for CSC111
 """
-
+from __future__ import annotations
+from typing import Any
 
 class Song:
     """
@@ -16,12 +17,11 @@ class Song:
         self.live = live
         self.speech = speech
 
-
 class Graph:
     """
     A class to represent all the songs
     """
-    nodes: list[Song]
+    nodes: list[Nodes]
 
     def __init__(self):
         self.nodes = []
@@ -41,6 +41,19 @@ class Graph:
     def __len__(self):
         return len(self.nodes)
 
+class Nodes:
+    """A vertex in a graph.
+
+        Instance Attributes:
+            - item: The data stored in this vertex.
+            - neighbours: The vertices that are adjacent to this vertex.
+
+        Representation Invariants:
+            - self not in self.neighbours
+            - all(self in u.neighbours for u in self.neighbours)
+        """
+    item: Song
+    neighbours: set[Nodes]
 
 # import csv
 #
