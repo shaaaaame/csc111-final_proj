@@ -67,7 +67,7 @@ class Graph:
     def __len__(self):
         return len(self.nodes)
 
-    def add_edge(self, id1: Any, id2: Any) -> None:
+    def add_edge(self, id1: Any, id2: Any, weight: float) -> None:
         """Add an edge between the two vertices with the given id number in this graph.
 
         Raise a ValueError if id1 or id2 do not appear as vertices in this graph.
@@ -80,8 +80,8 @@ class Graph:
             v2 = self.nodes[id2]
 
             # Add the new edge
-            v1.neighbours.add(v2)
-            v2.neighbours.add(v1)
+            v1.neighbours[v2] = weight
+            v2.neighbours[v1] = weight
         else:
             # We didn't find an existing vertex for both items.
             raise ValueError
@@ -99,9 +99,9 @@ class Node:
             - all(self in u.neighbours for u in self.neighbours)
         """
     item: Song
-    neighbours: set[Node]
+    neighbours: dict[Node, float]  # Node : weight (similarity)
 
-    def __init__(self, item: Song, neighbours: set[Node]) -> None:
+    def __init__(self, item: Song, neighbours: dict[Node, float]) -> None:
         """Initialize a new vertex with the given item and neighbours."""
         self.item = item
         self.neighbours = neighbours
