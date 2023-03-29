@@ -89,7 +89,7 @@ def create_graph(songs: list[Song]) -> Graph:
 def save_graph(graph: Graph, file_name: str) -> None:
     """Saves the graph in serialised form given the graph to be saved and the file name it should be saved as."""
     try:
-        file = open(file_name, 'w')
+        file = open(file_name, 'wb')
 
         pickle.dump(graph, file)
         print("Succesfully saved file.")
@@ -103,7 +103,7 @@ def save_graph(graph: Graph, file_name: str) -> None:
 def load_graph(file_name: str) -> Graph:
     """Loads the serialised form of graph given the file name."""
     try:
-        file = open(file_name, 'r')
+        file = open(file_name, 'rb')
         graph = pickle.load(file)
         file.close()
         return graph
