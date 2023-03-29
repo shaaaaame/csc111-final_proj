@@ -9,14 +9,18 @@ class Song:
     """
     A class to represent the songs.
     """
-    def __init__(self, ac: float, dance: float, energy: float,
-                 ins: float, live: float, speech: float):
+    def __init__(self, id: int, name: str, ac: float, dance: float, energy: float,
+                 ins: float, live: float, speech: float, tempo: float, valence: float):
+        self.id = id
+        self.name = name
         self.ac = ac
         self.dance = dance
         self.energy = energy
         self.ins = ins
         self.live = live
         self.speech = speech
+        self.tempo = tempo
+        self.val = valence
 
 
 class Graph:
