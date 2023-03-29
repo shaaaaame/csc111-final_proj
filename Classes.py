@@ -4,6 +4,7 @@ Project for CSC111
 from __future__ import annotations
 from typing import Any
 
+
 class Song:
     """
     A class to represent the songs.
@@ -16,6 +17,7 @@ class Song:
         self.ins = ins
         self.live = live
         self.speech = speech
+
 
 class Graph:
     """
@@ -60,6 +62,7 @@ class Graph:
             # We didn't find an existing vertex for both items.
             raise ValueError
 
+
 class Node:
     """A vertex in a graph.
 
@@ -73,6 +76,7 @@ class Node:
         """
     item: Song
     neighbours: set[Node]
+
     def __init__(self, item: Song, neighbours: set[Node]) -> None:
         """Initialize a new vertex with the given item and neighbours."""
         self.item = item
