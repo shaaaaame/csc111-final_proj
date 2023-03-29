@@ -6,8 +6,9 @@ Functions to note:
 - create_graph(list[Song]) : use this to instantiate and return a graph given a list of songs.
 """
 
-from Classes import Song, Graph, Node
+import pickle
 
+from Classes import Song, Graph, Node
 
 # Dictates how far apart ATTRIBUTE values have to be deemed "similar"
 SIMILARITY_THRESHOLD = 0.05
@@ -73,8 +74,6 @@ def create_graph(songs: list[Song]) -> Graph:
     Graph weight represents similarity.
     """
     graph = Graph()
-    similar_song_ids = {}
-
     populate_graph(graph, songs)
 
     for i in range(len(songs)):
@@ -85,3 +84,29 @@ def create_graph(songs: list[Song]) -> Graph:
         add_song_edges(graph, compared_song, similar_song_ids)
 
     return graph
+
+
+def save_graph(graph: Graph, file_name: str) -> None:
+    """Saves the graph in serialised form given the graph to be saved and the file name it should be saved as."""
+    try:
+        file = open(file_name, 'w')
+
+        pickle.dump(graph, file)
+        print("Succesfully saved file.")
+        file.close()
+        return
+    except Exception:
+        print("Issue saving graph as serialized file.")
+        raise Exception
+
+
+def load_graph(file_name: str) -> Graph:
+    """Loads the serialised form of graph given the file name."""
+    try:
+        file = open(file_name, 'r')
+        graph = pickle.load(file)
+        file.close()
+        return graph
+    except FileNotFoundError:
+        print("Error loading file: file not found.")
+        raise FileNotFoundError
