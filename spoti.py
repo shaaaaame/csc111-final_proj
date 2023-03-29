@@ -34,17 +34,33 @@ def get_related_artists(artist: str):
     return return_artists
 
 
-def get_features(track: str):
+def get_features(name: str, track: str) -> Song:
     """
-    Get audio features for a given track
+    Get audio features for a given track. Input the name of the track and it's id or url, and output
+    a Song class object with the correct attributes for the given song.
     """
     tracks = [track]
     features = sp.audio_features(tracks)
+    id = features[0]['id']
     ac = features[0]['acousticness']
     dance = features[0]['danceability']
     energy = features[0]['energy']
     ins = features[0]['instrumentalness']
     live = features[0]['liveness']
     speech = features[0]['speechiness']
+    tempo = features[0]['tempo']
+    val = features[0]['valence']
 
-    return Song(ac, dance, energy, ins, live, speech)
+    return Song(id, name, ac, dance, energy, ins, live, speech, tempo, val)
+
+
+def song_search(name: str):
+    """
+    Search a song by the inputted name in the spotify api, and return a Song class object for the given song.
+    """
+    results = sp.search(q=' track:' + name, type='track')
+    if not results['tracks']['items']:
+        raise Exception('Song Not Found')
+    track_id = results['tracks']['items'][0]['id']
+    track_name = results['tracks']['items'][0]['name']
+    return get_features(track_name, track_id)
