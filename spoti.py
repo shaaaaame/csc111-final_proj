@@ -2,7 +2,7 @@ from Classes import Song, Graph
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-# export SPOTIPY_CLIENT_ID='9a9006996b3447c99ccafa78766af60e'
+# SPOTIPY_CLIENT_ID='9a9006996b3447c99ccafa78766af60e'
 # export SPOTIPY_CLIENT_SECRET='12ce6ac5a2b54c95a1f521681827aab6'
 
 auth_manager = SpotifyClientCredentials('9a9006996b3447c99ccafa78766af60e', '12ce6ac5a2b54c95a1f521681827aab6')
