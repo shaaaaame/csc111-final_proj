@@ -21,7 +21,11 @@ class Song:
 
 class Graph:
     """
-    A class to represent all the songs
+    A class to represent all the songs.
+
+    Instance Attributes:
+    - nodes: a dictionary mapping a song id number to it's node
+
     """
     nodes: dict[int, Node]
 
