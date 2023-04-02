@@ -56,7 +56,7 @@ class Graph:
         """
         Add a song to the graph
         """
-        self.nodes[song.id] = Node(song, set())
+        self.nodes[song.id] = Node(song, {})
 
     def get_songs(self):
         """
