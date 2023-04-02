@@ -52,17 +52,20 @@ class Graph:
     def __init__(self):
         self.nodes = {}
 
-    def add_song(self, song: Song):
+    def add_node(self, song: Song):
         """
-        Add a song to the graph
+        Add a node to the graph
         """
         self.nodes[song.id] = Node(song, {})
 
-    def get_songs(self):
+    def get_nodes(self) -> list[Node]:
         """
-        Return the songs in this graph
+        Return the nodes in this graph
         """
-        return self.nodes
+        nodes_so_far = []
+        for node in self.nodes:
+            nodes_so_far.append(self.nodes[node])
+        return nodes_so_far
 
     def __len__(self):
         return len(self.nodes)
