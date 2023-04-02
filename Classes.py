@@ -123,11 +123,11 @@ class Node:
         return vertexes_so_far
 
 
-def read_csv(csv_file: str):
+def read_csv(csv_file: str) -> list[Song]:
     """
     Read the given csv_file and add to the graph
     """
-    graph = Graph()
+    songs = []
     with open(csv_file, errors='ignore') as file:
         reader = csv.reader(file)
         header = next(file)
@@ -144,5 +144,6 @@ def read_csv(csv_file: str):
             val = float(row[16])
 
             song = Song(id, name, ac, dance, energy, ins, live, speech, tempo, val)
-            graph.add_song(song)
-    return graph
+            songs.append(song)
+
+    return songs

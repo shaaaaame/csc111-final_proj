@@ -10,7 +10,7 @@ import pickle
 
 from Classes import Song, Graph, Node
 
-# Dictates how far apart ATTRIBUTE values have to be deemed "similar"
+# Dictates how far apart ATTRIBUTE values between 2 songs need to be to deem them similar
 SIMILARITY_THRESHOLD = 0.05
 
 # Dictates what proportion of attributes must be similar for SONGS to be deemed similar
@@ -18,7 +18,7 @@ JACCARD_THRESHHOLD = 0.8
 
 
 def calc_song_jaccard_index(song1: Song, song2: Song) -> float:
-    """Calculates Jaccard Similarity given two songs"""
+    """Calculates and returns Jaccard Similarity given two songs"""
     def is_similar(attr1: float, attr2: float) -> bool:
         """Returns whether two attributes are similar enough using the SIMILARITY_THRESHOLD"""
 
