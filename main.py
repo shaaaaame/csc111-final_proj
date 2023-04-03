@@ -2,26 +2,29 @@
 Main running file!
 """
 
-from GraphCreation import create_graph, save_graph, load_graph
-import os
+from GraphCreation import save_graph, load_graph, SAVED_GRAPH_FILEPATH
+from spoti import song_search_id
+from DisplaySongMap import run
+from Classes import Song, Node
 
-SAVED_GRAPH_FILEPATH = "song_graph"
 
+if __name__ == "__main__":
 
-def __main__():
-    if os.path.exists(SAVED_GRAPH_FILEPATH):
-        graph = load_graph(SAVED_GRAPH_FILEPATH)
-    else:
-        # GET DATA HERE
-        songs = []
+    # LOAD GRAPH
+    print("Loading...")
+    graph = load_graph("song_graph_v2.json")
 
-        graph = create_graph(songs)
+    # USER INPUT
+    user_song_name = input("Enter song name: ")
+    user_song_id = song_search_id(user_song_name)
+    print(user_song_id)
+
+    while user_song_id not in graph.nodes:
+        user_song_name = input("Song not in graph! Enter another song name: ")
+        user_song_id = song_search_id(user_song_name)
 
     # RUN LOOP
-    is_running = True
-    while is_running:
-        # USE GRAPH TO MAP, ETC
-        pass
+    run(graph, user_song_id)
 
-    # SAVE GRAPH BEFORE TERMINATE PROGRAM
-    save_graph(graph, SAVED_GRAPH_FILEPATH)
+    # # SAVE GRAPH BEFORE TERMINATE PROGRAM
+    # save_graph(graph, SAVED_GRAPH_FILEPATH)

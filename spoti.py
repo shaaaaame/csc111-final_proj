@@ -1,43 +1,52 @@
-from Classes import Song, Graph
+from Classes import Song
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
 # SPOTIPY_CLIENT_ID='9a9006996b3447c99ccafa78766af60e'
-# export SPOTIPY_CLIENT_SECRET='12ce6ac5a2b54c95a1f521681827aab6'
+# SPOTIPY_CLIENT_SECRET='12ce6ac5a2b54c95a1f521681827aab6'
 
 auth_manager = SpotifyClientCredentials('9a9006996b3447c99ccafa78766af60e', '12ce6ac5a2b54c95a1f521681827aab6')
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
-# playlists = sp.user_playlists('spotify')
-# while playlists:
-#     for i, playlist in enumerate(playlists['items']):
-#         print("%4d %s %s" % (i + 1 + playlists['offset'], playlist['uri'],  playlist['name']))
-#     if playlists['next']:
-#         playlists = sp.next(playlists)
-#     else:
-#         playlists = None
-
-
+# examples for testing functions
 example_artist = 'https://open.spotify.com/artist/1o2NpYGqHiCq7FoiYdyd1x'
 example_track = 'https://open.spotify.com/track/5f2zZawBtGBEw24ABweErz'
 
 
-def get_related_artists(artist: str):
+def song_search(name: str) -> Song:
     """
-    Get related artists from the given artist
+    Takes a song name as a parameter, and outputs a Song object corresponding to the inputted song.
+
+    - name: name of the song to search
     """
-    return_artists = []
-    related = sp.artist_related_artists(artist)
-    artists = related['artists']
-    for r in range(len(artists)):
-        return_artists.append(artists[r]['name'])
-    return return_artists
+    results = sp.search(q=' track:' + name, type='track')
+    if not results['tracks']['items']:
+        raise Exception('Song Not Found')
+    track_id = results['tracks']['items'][0]['id']
+    track_name = results['tracks']['items'][0]['name']
+    return get_features(track_name, track_id)
+
+
+def song_search_id(name: str) -> str:
+    """
+    Takes a song name as a parameter, and outputs the id of the song from spotipy.
+
+    - name: name of the song to search
+    """
+    results = sp.search(q=' track:' + name, type='track')
+    if not results['tracks']['items']:
+        raise Exception('Song Not Found')
+    return results['tracks']['items'][0]['id']
 
 
 def get_features(name: str, track: str) -> Song:
     """
-    Get audio features for a given track. Input the name of the track and it's id or url, and output
-    a Song class object with the correct attributes for the given song.
+    Helper function for song_search. Get audio features for a given track.
+    Input the name of the track and it's id or url, and output a Song class object with the correct attributes
+    for the given song.
+
+    - name : name of the song
+    - track : id or url of the song
     """
     tracks = [track]
     features = sp.audio_features(tracks)
@@ -52,15 +61,3 @@ def get_features(name: str, track: str) -> Song:
     val = features[0]['valence']
 
     return Song(id, name, ac, dance, energy, ins, live, speech, tempo, val)
-
-
-def song_search(name: str):
-    """
-    Search a song by the inputted name in the spotify api, and return a Song class object for the given song.
-    """
-    results = sp.search(q=' track:' + name, type='track')
-    if not results['tracks']['items']:
-        raise Exception('Song Not Found')
-    track_id = results['tracks']['items'][0]['id']
-    track_name = results['tracks']['items'][0]['name']
-    return get_features(track_name, track_id)

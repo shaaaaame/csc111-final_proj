@@ -10,7 +10,7 @@ class Song:
     """
     A class to represent the songs.
     """
-    def __init__(self, id: int, name: str, ac: float, dance: float, energy: float,
+    def __init__(self, id: str, name: str, ac: float, dance: float, energy: float,
                  ins: float, live: float, speech: float, tempo: float, valence: float):
         self.id = id
         self.name = name
@@ -47,7 +47,7 @@ class Graph:
     - nodes: a dictionary mapping a song id number to it's node
 
     """
-    nodes: dict[int, Node]
+    nodes: dict[str, Node]
 
     def __init__(self):
         self.nodes = {}
@@ -83,8 +83,8 @@ class Graph:
             v2 = self.nodes[id2]
 
             # Add the new edge
-            v1.neighbours[v2] = weight
-            v2.neighbours[v1] = weight
+            v1.neighbours[id2] = weight
+            v2.neighbours[id1] = weight
         else:
             # We didn't find an existing vertex for both items.
             raise ValueError
@@ -102,28 +102,16 @@ class Node:
             - all(self in u.neighbours for u in self.neighbours)
         """
     item: Song
-    neighbours: dict[Node, float]  # Node : weight (similarity)
+    neighbours: dict[str, float]  # song_id : weight (similarity)
 
-    def __init__(self, item: Song, neighbours: dict[Node, float]) -> None:
+    def __init__(self, item: Song, neighbours: dict[str, float]) -> None:
         """Initialize a new vertex with the given item and neighbours."""
         self.item = item
         self.neighbours = neighbours
 
-    def get_connected_component(self, visited: set[Node]) -> set:
-        """Return a set of all ITEMS connected to self by a path that does not use
-        any vertices in visited.
-
-        The items of the vertices in visited CANNOT appear in the returned set.
-
-        Preconditions:
-            - self not in visited
-        """
-        vertexes_so_far = {self.item}
-        visited.add(self)
-        for vertex in self.neighbours:
-            if vertex not in visited:
-                vertexes_so_far |= vertex.get_connected_component(visited)
-        return vertexes_so_far
+    def get_item(self) -> Song:
+        """Returns the item stored in this node"""
+        return self.item
 
 
 def read_csv(csv_file: str) -> list[Song]:
@@ -137,14 +125,14 @@ def read_csv(csv_file: str) -> list[Song]:
         for row in reader:
             id = row[0]
             name = row[1]
-            ac = float(row[12])
-            dance = float(row[6])
-            energy = float(row[7])
-            ins = float(row[13])
-            live = float(row[14])
-            speech = float(row[11])
-            tempo = float(row[15])
-            val = float(row[16])
+            ac = float(row[6])
+            dance = float(row[3])
+            energy = float(row[4])
+            ins = float(row[7])
+            live = float(row[8])
+            speech = float(row[5])
+            tempo = float(row[10])
+            val = float(row[9])
 
             song = Song(id, name, ac, dance, energy, ins, live, speech, tempo, val)
             songs.append(song)
