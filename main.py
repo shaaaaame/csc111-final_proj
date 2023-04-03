@@ -15,7 +15,7 @@ if __name__ == "__main__":
     graph = load_graph("song_graph_v2.json")
 
     # USER INPUT
-    user_song_name = input("Enter song name: ")
+    user_song_name = input("Enter song name (If you don't have any, try \"Crazy Over You\": ")
     user_song_id = song_search_id(user_song_name)
     print(user_song_id)
 
