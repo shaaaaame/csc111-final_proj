@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     # LOAD GRAPH
     print("Loading...")
-    graph = load_graph("song_graph_v2.json")
+    graph = load_graph(SAVED_GRAPH_FILEPATH)
 
     # USER INPUT
     user_song_name = input("Enter song name (If you don't have any, try \"Crazy Over You\": ")

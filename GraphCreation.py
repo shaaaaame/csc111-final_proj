@@ -12,10 +12,10 @@ import json
 from Classes import Song, Graph, Node, read_csv
 
 # CSV that contains data to use
-CSV_FILEPATH = "tracks_clean.csv"
+CSV_FILEPATH = "tracks_2020.csv"
 
 # Filepath of where our serialised graph is to be stored
-SAVED_GRAPH_FILEPATH = "song_graph.json"
+SAVED_GRAPH_FILEPATH = "song_graph_v2.json"
 
 # Dictates how far apart ATTRIBUTE values between 2 songs need to be to deem them similar
 SIMILARITY_THRESHOLD = 0.1
